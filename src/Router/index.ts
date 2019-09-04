@@ -16,9 +16,7 @@ export interface Methods<Redirect extends RedirectFn> {
   setQuery: Set<Redirect>
   removeQuery: Remove<Redirect>
 
-  redirect: Redirect
   routeIncludes: Includes
-
 }
 
 export class Router<Redirect extends RedirectFn> {
