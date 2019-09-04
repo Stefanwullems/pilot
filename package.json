@@ -1,5 +1,5 @@
 {
-  "name": "pilot",
+  "name": "piloteer",
   "version": "0.0.6",
   "description": "Javascript router",
   "main": "dist/index.js",
