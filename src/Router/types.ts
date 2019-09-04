@@ -1,7 +1,7 @@
+export type RedirectFn = (...args: any[]) => void
 
 export type Get = (name: string) => string | undefined
-export type Set = (name: string, value: string) => void
-export type Remove = (name: string) => void
+export type Set<Redirect extends RedirectFn> = (name: string, value: string) => Parameters<Redirect> 
+export type Remove<Redirect extends RedirectFn> = (name: string) => Parameters<Redirect> 
 
-export type Redirect = (route: string) => void
 export type Includes = (route: string) => boolean

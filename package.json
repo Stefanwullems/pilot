@@ -1,6 +1,6 @@
 {
   "name": "piloteer",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Javascript router",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

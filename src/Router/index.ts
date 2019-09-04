@@ -2,30 +2,32 @@ import {
   Get,
   Set,
   Remove,
-  Redirect,
-  Includes
- } from './types'
+  Includes,
+  RedirectFn
+} from './types'
 
-export interface Methods {
+export interface Methods<Redirect extends RedirectFn> {
 
   getParam: Get
-  setParam: Set
-  removeParam: Remove
+  setParam: Set<Redirect>
+  removeParam: Remove<Redirect>
 
   getQuery: Get
-  setQuery: Set
-  removeQuery: Remove
+  setQuery: Set<Redirect>
+  removeQuery: Remove<Redirect>
 
   redirect: Redirect
   routeIncludes: Includes
 
 }
 
-export class Router {
-  _methods: Methods
+export class Router<Redirect extends RedirectFn> {
+  _methods: Methods<Redirect>
+  _redirect: Redirect
 
-  constructor (methods: Methods) {
+  constructor (methods: Methods<Redirect>, redirect: Redirect) {
     this._methods = methods
+    this._redirect = redirect
   }
 
   getParam = (param: string) => { 
@@ -33,11 +35,11 @@ export class Router {
   }
 
   setParam = (param: string, value: string) => {
-    this._methods.setParam(param, value)
+    this._redirect(...this._methods.setParam(param, value))
   }
 
   removeParam = (param: string) => {
-    this._methods.removeParam(param)
+    this._redirect(...this._methods.removeParam(param))
   }
 
   getQuery = (query: string) => {  
@@ -45,15 +47,11 @@ export class Router {
   }
 
   setQuery = (query: string, value: string) => {
-    this._methods.setQuery(query, value)
+    this._redirect(this._methods.setQuery(query, value))
   }
 
   removeQuery = (query: string) => {
-    this._methods.removeQuery(query)
-  }
-
-  redirect = (route: string) => {
-    this._methods.redirect(route)
+    this._redirect(this._methods.removeQuery(query))
   }
 
   routeIncludes = (route: string) => {
