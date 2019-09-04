@@ -23,7 +23,7 @@ export class Router<Redirect extends RedirectFn> {
   _methods: Methods<Redirect>
   _redirect: Redirect
 
-  constructor (methods: Methods<Redirect>, redirect: Redirect) {
+  constructor (redirect: Redirect, methods: Methods<Redirect>) {
     this._methods = methods
     this._redirect = redirect
   }
